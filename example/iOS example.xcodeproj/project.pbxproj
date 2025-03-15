@@ -1,0 +1,519 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F427E6731F76A361008FA142 /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = F427E6721F76A361008FA142 /* Cloud.swift */; };
+		F42AAD041F73781B0008D6D6 /* clouds.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F42AAD011F73781B0008D6D6 /* clouds.xcdatamodeld */; };
+		F42AAD081F7379A10008D6D6 /* CloudAdder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42AAD071F7379A10008D6D6 /* CloudAdder.swift */; };
+		F42AAD101F73A0DB0008D6D6 /* ImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42AAD0F1F73A0DB0008D6D6 /* ImageCollectionViewController.swift */; };
+		F42AAD121F73A1900008D6D6 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42AAD111F73A1900008D6D6 /* ImageCollectionViewCell.swift */; };
+		F43811891BE759CB0030D9FD /* StormcloudTestsCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43811831BE759CB0030D9FD /* StormcloudTestsCoreDataStack.swift */; };
+		F438118D1BE759CB0030D9FD /* Raindrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43811871BE759CB0030D9FD /* Raindrop.swift */; };
+		F438118F1BE759E60030D9FD /* Stormcloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F46233341BE243EF00A97836 /* Stormcloud.framework */; };
+		F43811901BE759E80030D9FD /* Stormcloud.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F46233341BE243EF00A97836 /* Stormcloud.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F43811991BE77A2F0030D9FD /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43811971BE77A2F0030D9FD /* Tag.swift */; };
+		F438119D1BE77AAC0030D9FD /* TagsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438119C1BE77AAC0030D9FD /* TagsTableViewController.swift */; };
+		F48421381BDCD42D00C98567 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421371BDCD42D00C98567 /* AppDelegate.swift */; };
+		F48421411BDCD42D00C98567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F48421401BDCD42D00C98567 /* Assets.xcassets */; };
+		F48421441BDCD42D00C98567 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F48421421BDCD42D00C98567 /* LaunchScreen.storyboard */; };
+		F48421881BDCD6B700C98567 /* CloudDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421831BDCD6B700C98567 /* CloudDetailViewController.swift */; };
+		F48421891BDCD6B700C98567 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421841BDCD6B700C98567 /* DetailViewController.swift */; };
+		F484218A1BDCD6B700C98567 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421851BDCD6B700C98567 /* DocumentsTableViewController.swift */; };
+		F484218B1BDCD6B700C98567 /* RaindropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421861BDCD6B700C98567 /* RaindropView.swift */; };
+		F484218C1BDCD6B700C98567 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421871BDCD6B700C98567 /* SettingsViewController.swift */; };
+		F48421901BDCD76300C98567 /* StormcloudFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F484218F1BDCD76300C98567 /* StormcloudFetchedResultsController.swift */; };
+		F48421921BDCD7E600C98567 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421911BDCD7E600C98567 /* Helpers.swift */; };
+		F48421941BDCD81F00C98567 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F48421931BDCD81F00C98567 /* Main.storyboard */; };
+		F484219A1BDCDC6300C98567 /* CloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48421991BDCDC6300C98567 /* CloudView.swift */; };
+		F4F00C7A1F9CC632000B12B6 /* DirectoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F00C791F9CC632000B12B6 /* DirectoryTableViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F46233331BE243EF00A97836 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F462332E1BE243EF00A97836 /* Stormcloud.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4E2E94F1BDCC8AF00A63FAF;
+			remoteInfo = Stormcloud;
+		};
+		F46233351BE243EF00A97836 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F462332E1BE243EF00A97836 /* Stormcloud.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4E2E9591BDCC8AF00A63FAF;
+			remoteInfo = StormcloudTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F48421721BDCD51C00C98567 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F43811901BE759E80030D9FD /* Stormcloud.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F427E6721F76A361008FA142 /* Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cloud.swift; sourceTree = "<group>"; };
+		F42AAD021F73781B0008D6D6 /* clouds 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "clouds 2.xcdatamodel"; sourceTree = "<group>"; };
+		F42AAD031F73781B0008D6D6 /* clouds.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = clouds.xcdatamodel; sourceTree = "<group>"; };
+		F42AAD071F7379A10008D6D6 /* CloudAdder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAdder.swift; sourceTree = "<group>"; };
+		F42AAD0F1F73A0DB0008D6D6 /* ImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewController.swift; sourceTree = "<group>"; };
+		F42AAD111F73A1900008D6D6 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		F43811831BE759CB0030D9FD /* StormcloudTestsCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StormcloudTestsCoreDataStack.swift; path = ../../StormcloudTests/StormcloudTestsCoreDataStack.swift; sourceTree = "<group>"; };
+		F43811871BE759CB0030D9FD /* Raindrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Raindrop.swift; path = ../../StormcloudTests/Raindrop.swift; sourceTree = "<group>"; };
+		F43811971BE77A2F0030D9FD /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tag.swift; path = ../../StormcloudTests/Tag.swift; sourceTree = "<group>"; };
+		F438119C1BE77AAC0030D9FD /* TagsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsTableViewController.swift; sourceTree = "<group>"; };
+		F462332E1BE243EF00A97836 /* Stormcloud.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Stormcloud.xcodeproj; path = ../Stormcloud.xcodeproj; sourceTree = "<group>"; };
+		F48421341BDCD42D00C98567 /* iOS example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F48421371BDCD42D00C98567 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F48421401BDCD42D00C98567 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F48421431BDCD42D00C98567 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F48421451BDCD42D00C98567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F48421831BDCD6B700C98567 /* CloudDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDetailViewController.swift; sourceTree = "<group>"; };
+		F48421841BDCD6B700C98567 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F48421851BDCD6B700C98567 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
+		F48421861BDCD6B700C98567 /* RaindropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaindropView.swift; sourceTree = "<group>"; };
+		F48421871BDCD6B700C98567 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F484218F1BDCD76300C98567 /* StormcloudFetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StormcloudFetchedResultsController.swift; sourceTree = "<group>"; };
+		F48421911BDCD7E600C98567 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		F48421931BDCD81F00C98567 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F48421981BDCDB5400C98567 /* iOS example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "iOS example.entitlements"; sourceTree = "<group>"; };
+		F48421991BDCDC6300C98567 /* CloudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudView.swift; sourceTree = "<group>"; };
+		F4F00C791F9CC632000B12B6 /* DirectoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryTableViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F48421311BDCD42D00C98567 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F438118F1BE759E60030D9FD /* Stormcloud.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F462332F1BE243EF00A97836 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F46233341BE243EF00A97836 /* Stormcloud.framework */,
+				F46233361BE243EF00A97836 /* StormcloudTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F484212B1BDCD42D00C98567 = {
+			isa = PBXGroup;
+			children = (
+				F48421361BDCD42D00C98567 /* iOS example */,
+				F48421351BDCD42D00C98567 /* Products */,
+				F462332E1BE243EF00A97836 /* Stormcloud.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		F48421351BDCD42D00C98567 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F48421341BDCD42D00C98567 /* iOS example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F48421361BDCD42D00C98567 /* iOS example */ = {
+			isa = PBXGroup;
+			children = (
+				F48421981BDCDB5400C98567 /* iOS example.entitlements */,
+				F48421911BDCD7E600C98567 /* Helpers.swift */,
+				F484218E1BDCD6D000C98567 /* Views */,
+				F484218D1BDCD6C500C98567 /* Controllers */,
+				F48421801BDCD5C900C98567 /* Model */,
+				F48421371BDCD42D00C98567 /* AppDelegate.swift */,
+				F48421401BDCD42D00C98567 /* Assets.xcassets */,
+				F48421421BDCD42D00C98567 /* LaunchScreen.storyboard */,
+				F48421451BDCD42D00C98567 /* Info.plist */,
+			);
+			path = "iOS example";
+			sourceTree = "<group>";
+		};
+		F48421801BDCD5C900C98567 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F42AAD011F73781B0008D6D6 /* clouds.xcdatamodeld */,
+				F43811971BE77A2F0030D9FD /* Tag.swift */,
+				F43811831BE759CB0030D9FD /* StormcloudTestsCoreDataStack.swift */,
+				F43811871BE759CB0030D9FD /* Raindrop.swift */,
+				F42AAD071F7379A10008D6D6 /* CloudAdder.swift */,
+				F427E6721F76A361008FA142 /* Cloud.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F484218D1BDCD6C500C98567 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F484218F1BDCD76300C98567 /* StormcloudFetchedResultsController.swift */,
+				F48421831BDCD6B700C98567 /* CloudDetailViewController.swift */,
+				F48421841BDCD6B700C98567 /* DetailViewController.swift */,
+				F48421851BDCD6B700C98567 /* DocumentsTableViewController.swift */,
+				F48421871BDCD6B700C98567 /* SettingsViewController.swift */,
+				F438119C1BE77AAC0030D9FD /* TagsTableViewController.swift */,
+				F42AAD0F1F73A0DB0008D6D6 /* ImageCollectionViewController.swift */,
+				F4F00C791F9CC632000B12B6 /* DirectoryTableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		F484218E1BDCD6D000C98567 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F48421931BDCD81F00C98567 /* Main.storyboard */,
+				F48421861BDCD6B700C98567 /* RaindropView.swift */,
+				F48421991BDCDC6300C98567 /* CloudView.swift */,
+				F42AAD111F73A1900008D6D6 /* ImageCollectionViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F48421331BDCD42D00C98567 /* iOS example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F484215E1BDCD42D00C98567 /* Build configuration list for PBXNativeTarget "iOS example" */;
+			buildPhases = (
+				F48421301BDCD42D00C98567 /* Sources */,
+				F48421311BDCD42D00C98567 /* Frameworks */,
+				F48421321BDCD42D00C98567 /* Resources */,
+				F48421721BDCD51C00C98567 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS example";
+			productName = "iOS example";
+			productReference = F48421341BDCD42D00C98567 /* iOS example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F484212C1BDCD42D00C98567 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 1620;
+				ORGANIZATIONNAME = "Voyage Travel Apps";
+				TargetAttributes = {
+					F48421331BDCD42D00C98567 = {
+						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 4F8KT722AK;
+						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = F484212F1BDCD42D00C98567 /* Build configuration list for PBXProject "iOS example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F484212B1BDCD42D00C98567;
+			productRefGroup = F48421351BDCD42D00C98567 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F462332F1BE243EF00A97836 /* Products */;
+					ProjectRef = F462332E1BE243EF00A97836 /* Stormcloud.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F48421331BDCD42D00C98567 /* iOS example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F46233341BE243EF00A97836 /* Stormcloud.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Stormcloud.framework;
+			remoteRef = F46233331BE243EF00A97836 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F46233361BE243EF00A97836 /* StormcloudTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = StormcloudTests.xctest;
+			remoteRef = F46233351BE243EF00A97836 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F48421321BDCD42D00C98567 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48421941BDCD81F00C98567 /* Main.storyboard in Resources */,
+				F48421441BDCD42D00C98567 /* LaunchScreen.storyboard in Resources */,
+				F48421411BDCD42D00C98567 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F48421301BDCD42D00C98567 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F43811991BE77A2F0030D9FD /* Tag.swift in Sources */,
+				F4F00C7A1F9CC632000B12B6 /* DirectoryTableViewController.swift in Sources */,
+				F427E6731F76A361008FA142 /* Cloud.swift in Sources */,
+				F48421891BDCD6B700C98567 /* DetailViewController.swift in Sources */,
+				F42AAD081F7379A10008D6D6 /* CloudAdder.swift in Sources */,
+				F48421921BDCD7E600C98567 /* Helpers.swift in Sources */,
+				F438119D1BE77AAC0030D9FD /* TagsTableViewController.swift in Sources */,
+				F42AAD121F73A1900008D6D6 /* ImageCollectionViewCell.swift in Sources */,
+				F484219A1BDCDC6300C98567 /* CloudView.swift in Sources */,
+				F48421901BDCD76300C98567 /* StormcloudFetchedResultsController.swift in Sources */,
+				F438118D1BE759CB0030D9FD /* Raindrop.swift in Sources */,
+				F484218A1BDCD6B700C98567 /* DocumentsTableViewController.swift in Sources */,
+				F48421881BDCD6B700C98567 /* CloudDetailViewController.swift in Sources */,
+				F48421381BDCD42D00C98567 /* AppDelegate.swift in Sources */,
+				F42AAD041F73781B0008D6D6 /* clouds.xcdatamodeld in Sources */,
+				F484218B1BDCD6B700C98567 /* RaindropView.swift in Sources */,
+				F42AAD101F73A0DB0008D6D6 /* ImageCollectionViewController.swift in Sources */,
+				F484218C1BDCD6B700C98567 /* SettingsViewController.swift in Sources */,
+				F43811891BE759CB0030D9FD /* StormcloudTestsCoreDataStack.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F48421421BDCD42D00C98567 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F48421431BDCD42D00C98567 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F484215C1BDCD42D00C98567 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F484215D1BDCD42D00C98567 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F484215F1BDCD42D00C98567 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "iOS example/iOS example.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4F8KT722AK;
+				INFOPLIST_FILE = "iOS example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tonymontes.Stormcloud.iOS-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		F48421601BDCD42D00C98567 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "iOS example/iOS example.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 4F8KT722AK;
+				INFOPLIST_FILE = "iOS example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tonymontes.Stormcloud.iOS-example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F484212F1BDCD42D00C98567 /* Build configuration list for PBXProject "iOS example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F484215C1BDCD42D00C98567 /* Debug */,
+				F484215D1BDCD42D00C98567 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F484215E1BDCD42D00C98567 /* Build configuration list for PBXNativeTarget "iOS example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F484215F1BDCD42D00C98567 /* Debug */,
+				F48421601BDCD42D00C98567 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F42AAD011F73781B0008D6D6 /* clouds.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F42AAD021F73781B0008D6D6 /* clouds 2.xcdatamodel */,
+				F42AAD031F73781B0008D6D6 /* clouds.xcdatamodel */,
+			);
+			currentVersion = F42AAD021F73781B0008D6D6 /* clouds 2.xcdatamodel */;
+			path = clouds.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F484212C1BDCD42D00C98567 /* Project object */;
+}
