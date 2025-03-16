@@ -23,18 +23,19 @@ class SettingsViewController: UIViewController, StormcloudViewController {
 	var stormcloud: Stormcloud?
     var cloudAdder : CloudAdder?
     
-    @IBOutlet var settingsSwitch1 : UISwitch!
-    @IBOutlet var settingsSwitch2 : UISwitch!
-    @IBOutlet var settingsSwitch3 : UISwitch!
+    @IBOutlet var settingsSwitch1: UISwitch!
+    @IBOutlet var settingsSwitch2: UISwitch!
+    @IBOutlet var settingsSwitch3: UISwitch!
     
-    @IBOutlet var textField : UITextField!
+    @IBOutlet var textField: UITextField!
     
-    @IBOutlet var valueLabel : UILabel!
-    @IBOutlet var valueStepper : UIStepper!
+    @IBOutlet var valueLabel: UILabel!
+    @IBOutlet var valueStepper: UIStepper!
 
-    @IBOutlet var cloudLabel : UILabel!
+    @IBOutlet var cloudLabel: UILabel!
     
     func updateCount() {
+
         if let stack = coreDataStack {
             let clouds = stack.performRequestForTemplate(ICEFetchRequests.CloudFetch)
             self.cloudLabel.text = "Cloud Count: \(clouds.count)"
@@ -52,6 +53,7 @@ class SettingsViewController: UIViewController, StormcloudViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         self.updateCount()
     }
 
@@ -61,7 +63,8 @@ class SettingsViewController: UIViewController, StormcloudViewController {
 }
 
 extension SettingsViewController {
-	@objc func updateDefaults(note : NSNotification ) {
+
+    @objc func updateDefaults(note: NSNotification ) {
 		
 		defer {
 			self.prepareSettings()
@@ -99,8 +102,10 @@ extension SettingsViewController {
 
 extension SettingsViewController {
     
-    @IBAction func addNewClouds( _ sender : UIButton ) {
+    @IBAction func addNewClouds( _ sender: UIButton ) {
+
         if let adder = self.cloudAdder, let stack = self.coreDataStack {
+
             let clouds = stack.performRequestForTemplate(ICEFetchRequests.CloudFetch)
             let total = Int(self.valueStepper.value)
             let runningTotal = clouds.count + 1
@@ -111,15 +116,17 @@ extension SettingsViewController {
         }
     }
     
-    @IBAction func settingsSwitchChanged( _ sender : UISwitch ) {
+    @IBAction func settingsSwitchChanged( _ sender: UISwitch ) {
         
         var key : String?
         if let senderSwitch = sender.accessibilityLabel {
             if senderSwitch.contains("1") {
                 key = ICEDefaultsKeys.Setting1.rawValue
-            } else if senderSwitch.contains("2") {
+            }
+            else if senderSwitch.contains("2") {
                 key = ICEDefaultsKeys.Setting2.rawValue
-            } else if senderSwitch.contains("3") {
+            }
+            else if senderSwitch.contains("3") {
                 key = ICEDefaultsKeys.Setting3.rawValue
             }
         }
@@ -129,17 +136,17 @@ extension SettingsViewController {
         }
     }
     
-    @IBAction func stepperChanged( _ sender : UIStepper ) {
+    @IBAction func stepperChanged( _ sender: UIStepper ) {
         self.valueLabel.text = "Add Clouds: \(Int(sender.value))"
         UserDefaults.standard.set(Int(sender.value), forKey: ICEDefaultsKeys.stepperValue.rawValue)
     }
     
-    @IBAction func dismissCloudVC(_ sender : UIBarButtonItem ) {
+    @IBAction func dismissCloudVC(_ sender: UIBarButtonItem ) {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-extension SettingsViewController : UITextFieldDelegate {
+extension SettingsViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()        

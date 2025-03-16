@@ -16,7 +16,7 @@ class ImageCollectionViewController: UICollectionViewController  {
 	var stormcloud: Stormcloud = Stormcloud()
 	var coreDataStack: CoreDataStack?
 
-	var imageCache : [String : UIImage] = [:]
+	var imageCache: [String : UIImage] = [:]
 	var count = 1
 	
     override func viewDidLoad() {
@@ -42,12 +42,14 @@ class ImageCollectionViewController: UICollectionViewController  {
         return 1
     }
 
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 numberOfItemsInSection section: Int) -> Int {
 		return stormcloud.items(for: .jpegImage).count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 		let item = stormcloud.items(for: .jpegImage)[indexPath.row]
 		if let hasCell = cell as? ImageCollectionViewCell {
@@ -55,7 +57,8 @@ class ImageCollectionViewController: UICollectionViewController  {
 			
 			if let hasImage = imageCache[item.filename] {
 				hasCell.photoView.image = hasImage
-			}  else {
+			}
+            else {
 				stormcloud.restoreBackup(from: item, completion: { (error, restoredObject) in
 					if let hasImage = restoredObject as? UIImage {
 						hasCell.photoView.image = hasImage

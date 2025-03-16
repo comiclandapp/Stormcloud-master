@@ -27,19 +27,19 @@ class StormcloudTestsBaseClass: XCTestCase {
 		case coreDataWeirdStrings
 		case waitForFilesToBeReady
 	}
-	
-	
+
 	var stormcloudExpectation: XCTestExpectation?
 	
 	var fileExtension : String = "json"
     var docsURL : URL?
-    
+
     let futureFilename = "2020-10-19 16-47-44--iPhone--1E7C8A50-FDDC-4904-AD64-B192CF3DD157"
     let pastFilename = "2014-10-18 16-47-44--iPhone--1E7C8A50-FDDC-4904-AD64-B192CF3DD157"
     
     override func setUp() {
         super.setUp()
-		docsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+
+        docsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 		deleteAllFiles()
 	}
     
@@ -48,16 +48,14 @@ class StormcloudTestsBaseClass: XCTestCase {
 
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 		super.tearDown()
-		
-
-
     }
 	
 	func deleteAllFiles() {
 		var docs : [URL] = []
 		do {
 			docs = try FileManager.default.contentsOfDirectory(at: docsURL!, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions())
-		} catch {
+		}
+        catch {
 			fatalError("couldn't search path \(docsURL!)")
 		}
 		
@@ -65,14 +63,13 @@ class StormcloudTestsBaseClass: XCTestCase {
 			do {
 				try FileManager.default.removeItem(at: url)
 				print("Deleting \(url)")
-			} catch {
+			}
+            catch {
 				fatalError("Couldn't delete item")
 			}
 		}
-		
 	}
-	
-	
+
 	func copyItemWith( filename: String, fileExtension : String ) {
 		let fullName = filename + "." + fileExtension
 		
@@ -80,8 +77,9 @@ class StormcloudTestsBaseClass: XCTestCase {
 			let docsURL = self.docsURL?.appendingPathComponent(fullName) {
 		
 			do {
-				try             FileManager.default.copyItem(at: theURL, to: docsURL)
-			} catch let error as NSError {
+				try FileManager.default.copyItem(at: theURL, to: docsURL)
+			}
+            catch let error as NSError {
 				XCTFail("Failed to copy past item \(error.localizedDescription)")
 			}
 		}
@@ -92,7 +90,6 @@ class StormcloudTestsBaseClass: XCTestCase {
 		self.copyItemWith(filename: self.futureFilename, fileExtension: self.fileExtension)
 		if extra {
 			self.copyItemWith(filename: "fragment", fileExtension: self.fileExtension)
-			
 		}
     }
 
@@ -102,7 +99,8 @@ class StormcloudTestsBaseClass: XCTestCase {
             var docs : [URL] = []
             do {
                 docs = try FileManager.default.contentsOfDirectory(at: docsURL, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions())
-            } catch {
+            }
+            catch {
                 print("couldn't search path \(docsURL)")
             }
             
@@ -135,13 +133,13 @@ extension StormcloudTestsBaseClass : StormcloudDelegate {
 			return
 		}
 		switch expectationDescription {
-		case  .positionTestAddItems:
-			stormcloudExpectation?.fulfill()
-		case .waitForFilesToBeReady, .maximumLimitsTestDidLoad,
-		     .restoringTest, .coreDataCreatesFileTest, .imagesReady, .coreDataRestore, .coreDataWeirdStrings:
-			stormcloudExpectation?.fulfill()
-		default:
-			break
+            case  .positionTestAddItems:
+                stormcloudExpectation?.fulfill()
+            case .waitForFilesToBeReady, .maximumLimitsTestDidLoad,
+                 .restoringTest, .coreDataCreatesFileTest, .imagesReady, .coreDataRestore, .coreDataWeirdStrings:
+                stormcloudExpectation?.fulfill()
+            default:
+                break
 		}
 	}
 	
@@ -157,30 +155,30 @@ extension StormcloudTestsBaseClass : StormcloudDelegate {
 			XCTFail("Incorrect description")
 			return
 		}
-		
+
 		switch expectationDescription {
-		case .addTestBackup:
-			if let hasItems = addedItems, hasItems.count == 1 {
-				stormcloudExpectation?.fulfill()
-			}
-		case .addTestMetadataUpdates:
-			if addedItems == nil && deletedItems == nil {
-				stormcloudExpectation?.fulfill()
-			}
-		case .delegateTestCorrectCounts:
-			if let hasItems = addedItems, hasItems.count == 2 {
-				stormcloudExpectation?.fulfill()
-			}
-		case .delegateTestThreeItems, .imageFileReady:
-			if let hasItems = addedItems, hasItems.count == 1 {
-				stormcloudExpectation?.fulfill()
-			}
-		case .addThenFindTest:
-			if let hasItems = addedItems, hasItems.count == 2 {
-				stormcloudExpectation?.fulfill()
-			}
-		default:
-			break
+            case .addTestBackup:
+                if let hasItems = addedItems, hasItems.count == 1 {
+                    stormcloudExpectation?.fulfill()
+                }
+            case .addTestMetadataUpdates:
+                if addedItems == nil && deletedItems == nil {
+                    stormcloudExpectation?.fulfill()
+                }
+            case .delegateTestCorrectCounts:
+                if let hasItems = addedItems, hasItems.count == 2 {
+                    stormcloudExpectation?.fulfill()
+                }
+            case .delegateTestThreeItems, .imageFileReady:
+                if let hasItems = addedItems, hasItems.count == 1 {
+                    stormcloudExpectation?.fulfill()
+                }
+            case .addThenFindTest:
+                if let hasItems = addedItems, hasItems.count == 2 {
+                    stormcloudExpectation?.fulfill()
+                }
+            default:
+                break
 		}
 	}
 	

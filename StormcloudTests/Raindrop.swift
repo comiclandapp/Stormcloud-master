@@ -23,9 +23,12 @@ open class Raindrop: NSManagedObject {
 
     // Insert code here to add functionality to your managed object subclass
 
-    open class func insertRaindropWithType(_ type : RaindropType, withCloud : Cloud, inContext context : NSManagedObjectContext ) throws -> Raindrop {
+    open class func insertRaindropWithType(_ type : RaindropType,
+                                           withCloud : Cloud,
+                                           inContext context : NSManagedObjectContext ) throws -> Raindrop {
         
-        if let drop1 = NSEntityDescription.insertNewObject(forEntityName: "Raindrop", into: context) as? Raindrop {
+        if let drop1 = NSEntityDescription.insertNewObject(forEntityName: "Raindrop",
+                                                           into: context) as? Raindrop {
             drop1.type = type.rawValue
             drop1.cloud = withCloud
             drop1.colour = UIColor.red

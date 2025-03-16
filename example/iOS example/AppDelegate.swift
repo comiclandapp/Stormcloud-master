@@ -41,18 +41,17 @@ enum ICEFetchRequests : String, CoreDataStackFetchTemplate {
 }
 
 protocol StormcloudViewController {
-	var coreDataStack : CoreDataStack? {
+	var coreDataStack: CoreDataStack? {
 		get set
 	}
 }
-
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let coreDataStack = CoreDataStack(modelName: "clouds")
     var window: UIWindow?
-    var defaultsManager : StormcloudDefaultsManager = StormcloudDefaultsManager()
+    var defaultsManager: StormcloudDefaultsManager = StormcloudDefaultsManager()
 
     func application(_: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -119,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate : UITabBarControllerDelegate {
+extension AppDelegate: UITabBarControllerDelegate {
 	
 	func tabBarController(_ tabBarController: UITabBarController,
                           shouldSelect viewController: UIViewController) -> Bool {
@@ -143,10 +142,12 @@ extension AppDelegate : UITabBarControllerDelegate {
 			
 			cloudVC.enableDelete = true
 			cloudVC.cellCallback = { (tableView: UITableView, object: NSManagedObject, ip : IndexPath) -> UITableViewCell in
-				guard let cell = tableView.dequeueReusableCell(withIdentifier: "CloudTableViewCell") else {
+
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "CloudTableViewCell") else {
 					return UITableViewCell()
 				}
-				if let cloudObject = object as? Cloud {
+
+                if let cloudObject = object as? Cloud {
 					cell.textLabel?.text =   cloudObject.name
 					if let data = cloudObject.image as Data?,  let image = UIImage(data: data) {
 						cell.imageView?.image = image

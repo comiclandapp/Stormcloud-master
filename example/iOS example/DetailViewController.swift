@@ -9,22 +9,21 @@
 import UIKit
 import Stormcloud
 
-
 class DetailViewController: UIViewController {
 	
 	let byteFormatter = ByteCountFormatter()
-	var metadataItem : StormcloudMetadata?
-    var itemURL : URL?
-    var document : JSONDocument?
-    var backupManager : Stormcloud?
-    var stack  : CoreDataStack?
+	var metadataItem: StormcloudMetadata?
+    var itemURL: URL?
+    var document: JSONDocument?
+    var backupManager: Stormcloud?
+    var stack: CoreDataStack?
 	
-    @IBOutlet var detailLabel : UILabel!
-	@IBOutlet var iCloudStatus : UILabel!
-	@IBOutlet var iCloudProgress : UILabel!
-    @IBOutlet var activityIndicator : UIActivityIndicatorView!
+    @IBOutlet var detailLabel: UILabel!
+	@IBOutlet var iCloudStatus: UILabel!
+	@IBOutlet var iCloudProgress: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet var imageView: UIImageView!
-	@IBOutlet var progressView : UIProgressView!
+	@IBOutlet var progressView: UIProgressView!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +50,7 @@ class DetailViewController: UIViewController {
 		}
     }
 	
-	func updateLabel( with metadata : StormcloudMetadata ) {
+	func updateLabel(with metadata: StormcloudMetadata) {
 		
 		var textItems : [String] = []
 		var progress = ""
@@ -85,23 +84,25 @@ class DetailViewController: UIViewController {
 	}
 	
 	func showImage() {
-		guard let manager = backupManager, let jpegMetadata = metadataItem as? JPEGMetadata else {
+
+        guard let manager = backupManager, let jpegMetadata = metadataItem as? JPEGMetadata else {
 			return
 		}
 
 		self.activityIndicator.startAnimating()
 		
 		manager.restoreBackup(from: jpegMetadata) { (error, image) in
-			DispatchQueue.main.async {
+
+            DispatchQueue.main.async {
 				self.activityIndicator.stopAnimating()
 				self.activityIndicator.isHidden = true
 
 				if let hasError = error {
 					switch hasError {
-					case .couldntOpenDocument:
-						self.updateLabel(with: "Error with document. Possible internet.")
-					default:
-						self.updateLabel(with: "\(hasError.localizedDescription)")
+                        case .couldntOpenDocument:
+                            self.updateLabel(with: "Error with document. Possible internet.")
+                        default:
+                            self.updateLabel(with: "\(hasError.localizedDescription)")
 					}
 				}
                 else {
@@ -115,8 +116,8 @@ class DetailViewController: UIViewController {
 		}
 	}
 
-    @IBAction func shareItem(_ sender: UIBarButtonItem ) {
-		
+    @IBAction func shareItem(_ sender: UIBarButtonItem) {
+
 		guard let item = metadataItem, let url = backupManager?.urlForItem(item	) else {
 			return
 		}
@@ -137,13 +138,14 @@ class DetailViewController: UIViewController {
 		self.detailLabel.isHidden = false
 		self.detailLabel.text = "Fetching object count..."
 		self.activityIndicator.startAnimating()
-		
+
 		self.document = JSONDocument(fileURL: manager.urlForItem(jsonMetadata)! )
 		guard let doc = self.document else {
 			updateLabel(with: "Error with document")
 			return
 		}
-		doc.open(completionHandler: { (success) -> Void in
+
+        doc.open(completionHandler: { (success) -> Void in
 			DispatchQueue.main.async {
 				DispatchQueue.main.async {
 					self.updateLabel(with: jsonMetadata)
@@ -153,7 +155,8 @@ class DetailViewController: UIViewController {
 					let fs : String
 					if let icloudData = jsonMetadata.iCloudMetadata, let size = icloudData.value(forAttribute: NSMetadataItemFSSizeKey) as? Int64 {
 						fs = self.byteFormatter.string(fromByteCount: size)
-					} else {
+					}
+                    else {
 						fs = ""
 					}
 					
@@ -162,13 +165,15 @@ class DetailViewController: UIViewController {
 			}
 		})
 	}
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
         self.document?.close(completionHandler: nil)
     }
 
-    @IBAction func restoreObject(_ sender : UIButton) {
+    @IBAction func restoreObject(_ sender: UIButton) {
+
         if let context = self.stack?.managedObjectContext, let doc = self.document {
             self.activityIndicator.startAnimating()
             self.view.isUserInteractionEnabled = false
@@ -179,7 +184,8 @@ class DetailViewController: UIViewController {
                 if let hasError = error {
                     message = "With Errors"
 					self.updateLabel(with: hasError.localizedDescription)
-                } else {
+                }
+                else {
                     message = "Successfully"
 					self.iCloudProgress.text = ""
 					self.updateLabel(with: "Successfully Restored")
@@ -190,39 +196,50 @@ class DetailViewController: UIViewController {
             })
         }
     }
-	func presentAlert(with message : String ) {
+
+    func presentAlert(with message: String ) {
 		let avc = UIAlertController(title: "Completed!", message: message, preferredStyle: .alert)
 		avc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
 		self.present(avc, animated: true, completion: nil)
 	}
 }
 
-extension DetailViewController : StormcloudDelegate, StormcloudCoreDataDelegate {
+extension DetailViewController: StormcloudDelegate, StormcloudCoreDataDelegate {
 	
 	func stormcloudFileListDidLoad(_ stormcloud: Stormcloud) {
 	}
 	
-	func metadataDidUpdate(_ metadata: StormcloudMetadata, for type: StormcloudDocumentType) {
+	func metadataDidUpdate(_ metadata: StormcloudMetadata,
+                           for type: StormcloudDocumentType) {
 		if metadata == self.metadataItem {
 			updateLabel(with: metadata)
 		}
 	}
 
-    func metadataListDidAddItemsAt(_ addedItems: IndexSet?, andDeletedItemsAt deletedItems: IndexSet?, for type: StormcloudDocumentType) {
+    func metadataListDidAddItemsAt(_ addedItems: IndexSet?,
+                                   andDeletedItemsAt deletedItems: IndexSet?,
+                                   for type: StormcloudDocumentType) {
 	}
 
 	func metadataListDidChange(_ manager: Stormcloud) {
 	}
 
-    func metadataListDidAddItemsAtIndexes(_ addedItems: IndexSet?, andDeletedItemsAtIndexes deletedItems: IndexSet?) {
+    func metadataListDidAddItemsAtIndexes(_ addedItems: IndexSet?,
+                                          andDeletedItemsAtIndexes deletedItems: IndexSet?) {
 	}
 	
-	func stormcloud(_ stormcloud: Stormcloud, coreDataHit error: StormcloudError, for status: StormcloudCoreDataStatus) {
+	func stormcloud(_ stormcloud: Stormcloud,
+                    coreDataHit error: StormcloudError,
+                    for status: StormcloudCoreDataStatus) {
 		updateLabel(with: "ERROR RESTORING")
 	}
 
-    func stormcloud(_ stormcloud: Stormcloud, didUpdate objectsUpdated: Int, of total: Int, for status: StormcloudCoreDataStatus) {
-		self.progressView.progress =  (Float(objectsUpdated) / Float(total))
+    func stormcloud(_ stormcloud: Stormcloud,
+                    didUpdate objectsUpdated: Int,
+                    of total: Int,
+                    for status: StormcloudCoreDataStatus) {
+
+        self.progressView.progress =  (Float(objectsUpdated) / Float(total))
 		self.iCloudProgress.text = String(format: "%.2f", (Float(objectsUpdated) / Float(total) ) * 100).appending("%")
 		switch status {
             case .deletingOldObjects:
@@ -235,7 +252,7 @@ extension DetailViewController : StormcloudDelegate, StormcloudCoreDataDelegate 
 	}
 }
 
-extension DetailViewController : StormcloudMetadataDelegate {
+extension DetailViewController: StormcloudMetadataDelegate {
 	func iCloudMetadataDidUpdate(_ metadata: StormcloudMetadata) {
 		updateLabel(with: metadata)
 	}

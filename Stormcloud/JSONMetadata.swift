@@ -14,9 +14,10 @@ open class JSONMetadata: StormcloudMetadata {
 	
 	/// The name of the device
 	open var device : String
-	
+
 	public override init() {
-		self.device = UIDevice.current.model
+
+        self.device = UIDevice.current.model
 		super.init()
 		let dateComponents = NSCalendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
 		(dateComponents as NSDateComponents).calendar = NSCalendar.current
@@ -36,9 +37,10 @@ open class JSONMetadata: StormcloudMetadata {
 		self.filename = "\(stringDate)--\(self.device).json"
 		self.type = .json
 	}
-	
+
 	public override init( path : String ) {
-		JSONMetadata.dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
+
+        JSONMetadata.dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
 		
 		var filename = ""
 		

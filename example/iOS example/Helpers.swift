@@ -17,7 +17,6 @@ public class DynamicHub: NSObject, UIDynamicItem {
     
     public init(bounds : CGRect ) {
         self.bounds = bounds
-        
     }
 }
 

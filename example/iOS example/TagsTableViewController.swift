@@ -55,6 +55,7 @@ class TagsTableViewController: StormcloudFetchedResultsController {
 }
 
 extension NSManagedObject {
+
     func addObject(value: NSManagedObject, forKey: String) {
         self.willChangeValue(forKey: forKey, withSetMutation: NSKeyValueSetMutationKind.union, using: NSSet(object: value) as Set<NSObject>)
         let items = self.mutableSetValue(forKey: forKey)
@@ -71,25 +72,24 @@ extension NSManagedObject {
 }
 
 extension TagsTableViewController {
-    
-    func checkTag( tag : NSManagedObject ) -> Bool {
+
+    func checkTag(tag: NSManagedObject ) -> Bool {
         if let tags = self.cloud.tags {
-            if tags.contains(tag) {
-                return true
-            } else {
-                return false
-            }
+            return tags.contains(tag)
         }
         return false
     }
-    
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let tag = self.frc?.object(at: indexPath) as? Tag {
+
+	override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+
+        if let tag = self.frc?.object(at: indexPath) as? Tag {
 			
             if let tags = self.cloud.tags {
                 if tags.contains(tag) {
 					self.cloud.removeObject(value: tag, forKey: "tags")
-                } else {
+                }
+                else {
 					self.cloud.addObject(value: tag, forKey: "tags")
                 }
             }
@@ -99,14 +99,16 @@ extension TagsTableViewController {
     }
 }
 
-
 extension TagsTableViewController {
+
     @IBAction func addTag(_ button : UIBarButtonItem ) {
+
         if tagOptions.count > 0 {
             let option = tagOptions.removeFirst()
             do {
                 _ = try Tag.insertTagWithName(option, inContext: self.cloud.managedObjectContext!)
-            } catch {
+            }
+            catch {
                 fatalError("Error inserting tag")
             }
         }

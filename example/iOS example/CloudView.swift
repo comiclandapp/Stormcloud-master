@@ -16,17 +16,19 @@ class CloudView: UIView {
             self.setNeedsDisplay()
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         self.setup()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+
+    @MainActor required init?(coder: NSCoder) {
+        super.init(coder: coder)
+
         self.setup()
     }
-    
+
     func setup() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = UIColor.clear

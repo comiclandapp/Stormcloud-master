@@ -207,7 +207,8 @@ class StormcloudCoreDataTests: StormcloudTestsBaseClass, StormcloudRestoreDelega
     }
     
     func testThatBackingUpCoreDataCreatesCorrectFormat() {
-		let manager = Stormcloud()
+
+        let manager = Stormcloud()
 		manager.delegate = self
         self.setupStack()
         let tags = self.addTags()

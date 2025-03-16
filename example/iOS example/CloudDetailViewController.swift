@@ -12,21 +12,21 @@ import CoreData
 
 class CloudDetailViewController: UIViewController {
 
-    @IBOutlet weak var cloudImage : CloudView!
+    @IBOutlet weak var cloudImage: CloudView!
     @IBOutlet weak var raindropType: UISegmentedControl!
     @IBOutlet weak var cloudNameTextField: UITextField!
     @IBOutlet weak var exampleRaindrop: RaindropView!
-    @IBOutlet weak var addRaindropButton : UIButton!
+    @IBOutlet weak var addRaindropButton: UIButton!
     
     @IBOutlet weak var raindropCount: UILabel!
     
-    var currentCloud : Cloud?
+    var currentCloud: Cloud?
     
-    var dynamicAnimator : UIDynamicAnimator?
+    var dynamicAnimator: UIDynamicAnimator?
     let gravityBehaviour = UIGravityBehavior()
     
-    var itemConstraints : [Int : [NSLayoutConstraint]] = [:]
-    var dynamicItems : [Int : UIDynamicItem] = [:]
+    var itemConstraints: [Int : [NSLayoutConstraint]] = [:]
+    var dynamicItems: [Int : UIDynamicItem] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,17 +41,14 @@ class CloudDetailViewController: UIViewController {
         
         self.addRaindropButton.isEnabled = false
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
 
 // MARK: - Methods
 
 extension CloudDetailViewController {
+
     func setupViews() {
+
         var count = 0
         for value in RaindropType.allValues {
             self.raindropType.insertSegment(withTitle: value.rawValue, at: count, animated: false)
@@ -77,19 +74,23 @@ extension CloudDetailViewController {
     }
     
     func saveChanges() {
+
         self.currentCloud?.name = self.cloudNameTextField.text
         do {
             try self.currentCloud?.managedObjectContext?.save()
-        } catch {
+        }
+        catch {
             print("Error saving")
         }
     }
     
     func rollbackChanges() {
+
         self.currentCloud?.managedObjectContext?.rollback()
     }
-    
+
     func colorFromSliders() -> UIColor {
+
         var r : CGFloat = 0
         var g : CGFloat = 0
         var b : CGFloat = 0
@@ -102,29 +103,30 @@ extension CloudDetailViewController {
         if let bView =   self.view.viewWithTag(3) as? UISlider {
             b = CGFloat(bView.value)
         }
-        
+
         return UIColor(red: r, green: g, blue: b, alpha: 1.0)
     }
-    
-	@objc func addDynamicItem( item : UIDynamicItem ) {
+
+	@objc func addDynamicItem(item: UIDynamicItem ) {
         self.gravityBehaviour.addItem(item)
     }
 }
 
-extension CloudDetailViewController : UITextFieldDelegate {
+extension CloudDetailViewController: UITextFieldDelegate {
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
         textField.resignFirstResponder()
         return true
     }
-    
 }
 
 // MARK: - Actions
 
 extension CloudDetailViewController {
     
-    @IBAction func selectedRaindropType( _ sender : UISegmentedControl ) {
-        
+    @IBAction func selectedRaindropType(_ sender: UISegmentedControl ) {
+
         guard let cloud = self.currentCloud else {
             return
         }
@@ -142,20 +144,20 @@ extension CloudDetailViewController {
         }
         
         let type = RaindropType.allValues[sender.selectedSegmentIndex]
-        
+
         var size = CGRect.zero
         switch type {
-        case .Drizzle:
-			size = CGRect(x: 0, y: 0, width: 5, height: 9)
-            self.gravityBehaviour.magnitude = 1.0
-        case .Light:
-            size = CGRect(x: 0, y: 0, width: 10, height: 18)
-            self.gravityBehaviour.magnitude = 2.0
-        case .Heavy :
-            size = CGRect(x: 0, y: 0, width: 15, height: 27)
-                        self.gravityBehaviour.magnitude = 3.0
+            case .Drizzle:
+                size = CGRect(x: 0, y: 0, width: 5, height: 9)
+                self.gravityBehaviour.magnitude = 1.0
+            case .Light:
+                size = CGRect(x: 0, y: 0, width: 10, height: 18)
+                self.gravityBehaviour.magnitude = 2.0
+            case .Heavy :
+                size = CGRect(x: 0, y: 0, width: 15, height: 27)
+                            self.gravityBehaviour.magnitude = 3.0
         }
-        
+
         let minLeading = CGFloat(self.cloudImage.frame.minX)
         let maxLeading = CGFloat(self.cloudImage.frame.maxX) - size.width
         let distance = maxLeading - minLeading
@@ -206,18 +208,18 @@ extension CloudDetailViewController {
                             let view = self.view.viewWithTag(10)
                             view?.center = dynamicItem.center
                         }
-                        
+
                         if constraints[1].constant > self.view.bounds.size.height {
                             self.gravityBehaviour.removeItem(dynamicItem)
                             constraints[1].constant = yConstant
                             subview.updateConstraintsIfNeeded()
                             constraints[0].constant = getRandomPosition()
-                            
-                        } else if constraints[1].constant == yConstant && dynamicItem.center.y > self.view.bounds.size.height {
+                        }
+                        else if constraints[1].constant == yConstant && dynamicItem.center.y > self.view.bounds.size.height {
                             dynamicItem.center = subview.center
                             self.gravityBehaviour.addItem(dynamicItem)
-                        } else {
-                            
+                        }
+                        else {
                             constraints[1].constant = dynamicItem.center.y - self.cloudImage.frame.midY
                         }
                     }
@@ -227,22 +229,23 @@ extension CloudDetailViewController {
         }
     }
     
-    @IBAction func addRaindrop( _ sender : UIButton ) {
-        
+    @IBAction func addRaindrop(_ sender: UIButton ) {
+
         guard let cloud = self.currentCloud else{
             return
         }
-        
+
         do {
-            let raindrop = try Raindrop.insertRaindropWithType(RaindropType.allValues[self.raindropType.selectedSegmentIndex], withCloud: cloud, inContext: cloud.managedObjectContext!)
+            let raindrop = try Raindrop.insertRaindropWithType(RaindropType.allValues[self.raindropType.selectedSegmentIndex],
+                                                               withCloud: cloud,
+                                                               inContext: cloud.managedObjectContext!)
             raindrop.colour = self.colorFromSliders()
             
             if let count = Int(raindropCount.text!) {
                 self.raindropCount.text = "\(count + 1)"
             }
-            
-
-        } catch {
+        }
+        catch {
             print("Couldn't create raindrop")
         }
         
@@ -254,12 +257,12 @@ extension CloudDetailViewController {
 
     }
     
-    @IBAction func dismissVC(_ sender : UIBarButtonItem ) {
+    @IBAction func dismissVC(_ sender: UIBarButtonItem ) {
         self.rollbackChanges()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func saveAndDismiss(_ sender : UIBarButtonItem ) {
+    @IBAction func saveAndDismiss(_ sender: UIBarButtonItem ) {
 
         self.saveChanges()
         self.presentingViewController?.dismiss(animated: true, completion: nil)
@@ -268,7 +271,7 @@ extension CloudDetailViewController {
 
 // MARK: - VTAUtilitiesFetchedResultsControllerDetailVC
 
-extension CloudDetailViewController : StormcloudFetchedResultsControllerDetailVC {
+extension CloudDetailViewController: StormcloudFetchedResultsControllerDetailVC {
     
     func setManagedObject(object: NSManagedObject) {
         if let cloud = object as? Cloud {

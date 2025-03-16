@@ -19,7 +19,6 @@ public enum CoreDataStackEnvironmentVariables : String, StormcloudEnvironmentVar
 
 public protocol CoreDataStackFetchTemplate {
     func fetchRequestName() -> String
-    
 }
 
 public protocol CoreDataStackDelegate {
@@ -59,20 +58,24 @@ open class CoreDataStack {
      
      */
     public init( modelName : String ) {
+
         self.modelName = modelName
         initialiseCoreData()
     }
-    
+
     open func performRequestForTemplate( _ template : CoreDataStackFetchTemplate ) -> [NSManagedObject] {
+
         let results : [NSManagedObject]
         if let fetchRequest = self.persistentStoreCoordinator?.managedObjectModel.fetchRequestTemplate(forName: template.fetchRequestName()), let context = self.managedObjectContext {
             do {
                 results = try context.fetch(fetchRequest) as! [NSManagedObject]
-            } catch {
+            }
+            catch {
                 results = []
                 print("Error fetching unit")
             }
-        } else {
+        }
+        else {
             results = []
         }
         return results
@@ -213,7 +216,6 @@ open class CoreDataStack {
         let storeURL = self.applicationDocumentsDirectory().appendingPathComponent("\(self.modelName).sqlite")
         
         if #available(OSX 10.9, *) {
-            
             do {
                 try  self.persistentStoreCoordinator?.destroyPersistentStore(at: storeURL, ofType: NSSQLiteStoreType, options: self.storeOptions())
             }

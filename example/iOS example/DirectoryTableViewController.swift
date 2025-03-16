@@ -40,7 +40,8 @@ class DirectoryTableViewController: UITableViewController, StormcloudViewControl
 		if stormcloud.isUsingiCloud {
 			self.title = "☁️ iCloud"
 			dir = FileManager.default.url(forUbiquityContainerIdentifier: nil)!.appendingPathComponent("Documents")
-		} else {
+		}
+        else {
 			self.title = "💾 Local"
 			dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 		}
@@ -71,19 +72,24 @@ class DirectoryTableViewController: UITableViewController, StormcloudViewControl
 	}
 	
 	// MARK: - Table view data source
-	
+
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		// #warning Incomplete implementation, return the number of sections
+
+        // #warning Incomplete implementation, return the number of sections
 		return 1
 	}
-	
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// #warning Incomplete implementation, return the number of rows
+
+	override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
+
+        // #warning Incomplete implementation, return the number of rows
 		return ( previous == nil ) ? fileContents.count : fileContents.count + 1
 	}
-	
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "BrowserCell", for: indexPath)
+
+	override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BrowserCell", for: indexPath)
 		
 		let url : URL
 		var labelText  = ""
@@ -108,13 +114,15 @@ class DirectoryTableViewController: UITableViewController, StormcloudViewControl
 		return cell
 	}
 	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
 
 		let url : URL
 		if indexPath.row == fileContents.count {
 			url = previous!
 			previous = url.deletingLastPathComponent()
-		} else {
+		}
+        else {
 			url = fileContents[indexPath.row]
 			previous = url.deletingLastPathComponent()
 		}
@@ -125,17 +133,21 @@ class DirectoryTableViewController: UITableViewController, StormcloudViewControl
 	}
 
 	// Override to support conditional editing of the table view.
-	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-		
+	override func tableView(_ tableView: UITableView,
+                            canEditRowAt indexPath: IndexPath) -> Bool {
+
 		return indexPath.row < fileContents.count
 	}
 
 	// Override to support editing the table view.
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-		if editingStyle == .delete {
+	override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCellEditingStyle,
+                            forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
 			// Delete the row from the data source
 			let url = fileContents[indexPath.row]
-			
+
 			if let _ = try? FileManager.default.removeItem(at: url ) {
 				fileContents.remove(at: indexPath.row)
 				tableView.deleteRows(at: [indexPath], with: .fade)

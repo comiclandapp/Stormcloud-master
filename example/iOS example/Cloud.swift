@@ -14,8 +14,13 @@ open class Cloud: NSManagedObject {
 	
 	// Insert code here to add functionality to your managed object subclass
 	
-	open class func insertCloudWithName(_ name : String, order : Int, didRain : Bool?, inContext context : NSManagedObjectContext ) throws -> Cloud {
-		if let cloud = NSEntityDescription.insertNewObject(forEntityName: "Cloud", into: context) as? Cloud {
+	open class func insertCloudWithName(_ name : String,
+                                        order : Int,
+                                        didRain : Bool?,
+                                        inContext context : NSManagedObjectContext ) throws -> Cloud {
+
+        if let cloud = NSEntityDescription.insertNewObject(forEntityName: "Cloud",
+                                                           into: context) as? Cloud {
 			cloud.name = name
 			cloud.order = NSNumber(value: order)
 			if let didRainSet = didRain {

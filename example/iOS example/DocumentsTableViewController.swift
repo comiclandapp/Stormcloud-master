@@ -12,12 +12,12 @@ import Stormcloud
 class DocumentsTableViewController: UITableViewController, StormcloudViewController {
 	
     let dateFormatter = DateFormatter()
-    var stormcloud: Stormcloud  = Stormcloud()
+    var stormcloud: Stormcloud = Stormcloud()
 	var coreDataStack: CoreDataStack?
 	
     let numberFormatter = NumberFormatter()
     
-    @IBOutlet var iCloudSwitch : UISwitch!
+    @IBOutlet var iCloudSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,8 @@ class DocumentsTableViewController: UITableViewController, StormcloudViewControl
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-		stormcloud.delegate = self
+
+        stormcloud.delegate = self
 		tableView.reloadData()
 		if stormcloud.fileListLoaded {
 			deleteOldValues()
@@ -35,10 +36,13 @@ class DocumentsTableViewController: UITableViewController, StormcloudViewControl
 	}
 	
 	func deleteOldValues() {
-		stormcloud.deleteItems(.json, overLimit: 3) { (error) in
-			if let hasError = error {
+
+        stormcloud.deleteItems(.json, overLimit: 3) { (error) in
+
+            if let hasError = error {
 				self.showAlertView(title: "Error Deleting", message: hasError.localizedDescription)
-			} else {
+			}
+            else {
 				self.showAlertView(title: "Update!", message: "Items over limit deleted")
 			}
 		}
@@ -49,14 +53,20 @@ class DocumentsTableViewController: UITableViewController, StormcloudViewControl
 
 extension DocumentsTableViewController {
 
-    func showAlertView(title : String, message : String ) {
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        let action = UIAlertAction(title: "OK!", style: .cancel, handler: { (alertAction) -> Void in
-            
+    func showAlertView(title: String,
+                       message: String ) {
+
+        let alertViewController = UIAlertController(title: title,
+                                                    message: message,
+                                                    preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "OK!",
+                                   style: .cancel,
+                                   handler: { (alertAction) -> Void in
         })
         alertViewController.addAction(action)
-        self.present(alertViewController, animated: true, completion: nil)
+        self.present(alertViewController,
+                     animated: true,
+                     completion: nil)
     }
 }
 
@@ -64,8 +74,9 @@ extension DocumentsTableViewController {
 
 extension DocumentsTableViewController  {
 
-	func data(at indexPath : IndexPath ) -> StormcloudMetadata? {
-		let type : StormcloudDocumentType
+	func data(at indexPath: IndexPath) -> StormcloudMetadata? {
+
+        let type: StormcloudDocumentType
 		switch indexPath.section {
             case 0:
                 type = .json
@@ -82,7 +93,10 @@ extension DocumentsTableViewController  {
 // MARK: - Segue
 
 extension DocumentsTableViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+    override func prepare(for segue: UIStoryboardSegue,
+                          sender: Any?) {
+
         if let dvc = segue.destination as? DetailViewController, let tvc = self.tableView.indexPathForSelectedRow {
 			
 			if let metadata = self.data(at: tvc) {
@@ -100,7 +114,8 @@ extension DocumentsTableViewController {
 
 extension DocumentsTableViewController {
     
-    @IBAction func enableiCloud( _ sender : UISwitch ) {
+    @IBAction func enableiCloud( _ sender: UISwitch ) {
+
         if sender.isOn {
 			
 			stormcloud.enableiCloudShouldMoveDocuments(true, completion: { (error) in
@@ -128,12 +143,14 @@ extension DocumentsTableViewController {
         }
     }
     
-    @IBAction func doneButton(_  sender : UIBarButtonItem ) {
+    @IBAction func doneButton(_  sender: UIBarButtonItem ) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func addButton( _ sender : UIBarButtonItem ) {
+    @IBAction func addButton( _ sender: UIBarButtonItem ) {
+
         if let context = coreDataStack?.privateContext {
+
             self.stormcloud.backupCoreDataEntities(in: context, completion: { (error, metadata) -> () in
 
                 var title = NSLocalizedString("Success!", comment: "The title of the alert box shown when a backup successfully completes")
@@ -172,7 +189,9 @@ extension DocumentsTableViewController {
 }
 
 extension DocumentsTableViewController {
-	open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+    open override func tableView(_ tableView: UITableView,
+                                 titleForHeaderInSection section: Int) -> String? {
 		switch section {
             case 0:
                 return "JSON Documents"
@@ -183,8 +202,10 @@ extension DocumentsTableViewController {
 		}
 	}
 	
-	open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "BackupTableViewCell", for: indexPath as IndexPath)
+	open override func tableView(_ tableView: UITableView,
+                                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BackupTableViewCell", for: indexPath as IndexPath)
 		
 		guard let metadata = data(at: indexPath) else {
 			return cell
@@ -193,7 +214,8 @@ extension DocumentsTableViewController {
 		return cell
 	}
 	
-	func configureTableViewCell( tvc : UITableViewCell, withMetadata data: StormcloudMetadata ) {
+	func configureTableViewCell(tvc: UITableViewCell,
+                                withMetadata data: StormcloudMetadata ) {
 		
 		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .short
@@ -216,7 +238,7 @@ extension DocumentsTableViewController {
 				text.append(" ⏬ \(self.numberFormatter.string(from: NSNumber(value: data.percentDownloaded / 100)) ?? "0")")
 			}
             else if data.isUploading {
-				
+
 				self.numberFormatter.numberStyle = NumberFormatter.Style.percent
 				text.append(" ⏫ \(self.numberFormatter.string(from: NSNumber(value: data.percentUploaded / 100 ))!)")
 			}
@@ -225,7 +247,8 @@ extension DocumentsTableViewController {
 		tvc.textLabel?.text = text
 		if let isJPEG = data as? JPEGMetadata {
 			tvc.detailTextLabel?.text = "Filename: \(isJPEG.filename)"
-		} else if let isJson = data as? JSONMetadata {
+		}
+        else if let isJson = data as? JSONMetadata {
 			tvc.detailTextLabel?.text = ( isJson.device == UIDevice.current.name ) ? "This Device" : isJson.device
 		}
 	}
@@ -234,7 +257,8 @@ extension DocumentsTableViewController {
 		return 2
 	}
 	
-	open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	open override func tableView(_ tableView: UITableView,
+                                 numberOfRowsInSection section: Int) -> Int {
 		switch section {
             case 0:
                 return stormcloud.items(for: .json).count
@@ -247,9 +271,13 @@ extension DocumentsTableViewController {
 }
 
 extension DocumentsTableViewController  {
-	// Override to support editing the table view.
-	open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-		if editingStyle == .delete {
+
+    // Override to support editing the table view.
+	open override func tableView(_ tableView: UITableView,
+                                 commit editingStyle: UITableViewCellEditingStyle,
+                                 forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
 			
 			// If we don't have an item, nothing to delete
 			guard let metadataItem = data(at: indexPath) else {
@@ -269,14 +297,15 @@ extension DocumentsTableViewController  {
 	}
 }
 
-extension DocumentsTableViewController : StormcloudDelegate  {
+extension DocumentsTableViewController: StormcloudDelegate  {
 	
 	public func stormcloudFileListDidLoad(_ stormcloud: Stormcloud) {
 		deleteOldValues()
 		self.tableView.reloadData()
 	}
 	
-	public func metadataDidUpdate(_ metadata: StormcloudMetadata, for type: StormcloudDocumentType) {
+	public func metadataDidUpdate(_ metadata: StormcloudMetadata,
+                                  for type: StormcloudDocumentType) {
 
         let section : Int
 		switch type {

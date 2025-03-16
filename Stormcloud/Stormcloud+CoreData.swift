@@ -259,19 +259,21 @@ extension Stormcloud {
 					self.coreDataDelegate?.stormcloud( self, didUpdate: insertCount, of: data.count, for: .insertingNewObjects )
 				}
 				for (key, value) in data {
-					insertCount += 1
+
+                    insertCount += 1
 					if var dict = value as? [ String : AnyObject], let entityName = dict[StormcloudEntityKeys.EntityType.rawValue] as? String {
-						self.stormcloudLog("\tCreating entity \(entityName)")
-						
+
+                        self.stormcloudLog("\tCreating entity \(entityName)")
+
 						// At this point it will have a temporary ID
 						let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: privateContext)
-						
+
 						dict[StormcloudEntityKeys.ManagedObject.rawValue] = object
-						
+
 						self.workingCache[key] = dict
-						
+
 						allObjects.append(object)
-						
+
 						for (propertyName, propertyValue ) in dict {
 							for propertyDescription in object.entity.properties {
 								if let attribute = propertyDescription as? NSAttributeDescription , propertyName == propertyDescription.name {
@@ -313,7 +315,7 @@ extension Stormcloud {
 					// TODO : Better error handling
 					self.stormcloudLog("Error saving during restore")
 				}
-				
+
 				context.performAndWait({ () -> Void in
 					do {
 						try context.save()
@@ -332,10 +334,10 @@ extension Stormcloud {
 						}
 					}
 				})
-				
+
 				// An array of managed objects, whose object IDs are now no good.
 				// A dictionary of the data, with one of the keys pointing to a managed object
-				
+
 				DispatchQueue.main.async {
 					self.coreDataDelegate?.stormcloud( self, didUpdate: 0, of: self.workingCache.count, for: .establishingRelationships )
 				}
@@ -356,13 +358,14 @@ extension Stormcloud {
 				DispatchQueue.main.async {
 					self.coreDataDelegate?.stormcloud( self, didUpdate: self.workingCache.count, of: self.workingCache.count, for: .establishingRelationships )
 				}
-				
+
 				do {
 					try privateContext.save()
-				} catch {
+				}
+                catch {
 					abort()
 				}
-				
+
 				DispatchQueue.main.async { () -> Void in
 					completion(success)
 				}
@@ -370,11 +373,11 @@ extension Stormcloud {
 		}
 	}
 	
-	func setRelationship( _ relationship : NSRelationshipDescription,
-                          onObject : NSManagedObject,
-                          withData data: [ String : AnyObject],
-                          inContext : NSManagedObjectContext ) {
-		
+	func setRelationship(_ relationship: NSRelationshipDescription,
+                         onObject: NSManagedObject,
+                         withData data: [ String : AnyObject],
+                         inContext: NSManagedObjectContext ) {
+
 		if let _ =  inContext.registeredObject(for: onObject.objectID) {
 		}
         else {
@@ -395,11 +398,10 @@ extension Stormcloud {
 					}
 				}
 			}
-			
+
 			if relationship.isToMany && setObjects.count > 0 {
 				self.stormcloudLog("\tRestoring To-many relationship \(String(describing: onObject.entity.name)) ->> \(relationship.name) with \(setObjects.count) objects")
 				if relationship.isOrdered {
-					
 					let set = NSOrderedSet(array: setObjects)
 					onObject.setValue(set, forKey: relationship.name)
 				}
@@ -414,7 +416,14 @@ extension Stormcloud {
 	func getAttribute( _ attribute : NSAttributeDescription, fromObject object : NSManagedObject ) -> Any? {
 
 		switch attribute.attributeType {
-            case .integer16AttributeType, .integer32AttributeType,.integer64AttributeType, .doubleAttributeType, .floatAttributeType, .stringAttributeType, .booleanAttributeType :
+
+            case .integer16AttributeType,
+                .integer32AttributeType,
+                .integer64AttributeType,
+                .doubleAttributeType,
+                .floatAttributeType,
+                .stringAttributeType,
+                .booleanAttributeType :
                 
                 return object.value(forKey: attribute.name)
 
@@ -445,15 +454,21 @@ extension Stormcloud {
 		return nil
 	}
 
-	func setAttribute( _ attribute : NSAttributeDescription,
-                       onObject object : NSManagedObject,
-                       withData data : AnyObject? ) {
+	func setAttribute(_ attribute: NSAttributeDescription,
+                      onObject object: NSManagedObject,
+                      withData data: AnyObject? ) {
 
         switch attribute.attributeType {
-            case .integer16AttributeType, .integer32AttributeType,.integer64AttributeType, .doubleAttributeType, .floatAttributeType:
+
+            case .integer16AttributeType,
+                .integer32AttributeType,
+                .integer64AttributeType,
+                .doubleAttributeType,
+                .floatAttributeType:
                 if let val = data as? NSNumber {
                     object.setValue(val, forKey: attribute.name)
-                } else {
+                }
+                else {
                     stormcloudLog("Setting Number : \(String(describing: data)) not Number")
                 }
                 
@@ -461,7 +476,8 @@ extension Stormcloud {
                 if let val = data as? String {
                     let decimal = NSDecimalNumber(string: val)
                     object.setValue(decimal, forKey: attribute.name)
-                } else {
+                }
+            else {
                     stormcloudLog("Setting Decimal : \(String(describing: data)) not String")
                 }
                 
@@ -474,7 +490,8 @@ extension Stormcloud {
             case .booleanAttributeType:
                 if let val = data as? NSNumber {
                     object.setValue(val.boolValue, forKey: attribute.name)
-                } else {
+                }
+            else {
                     stormcloudLog("Setting Bool : \(String(describing: data)) not Number")
                 }
             case .dateAttributeType:
@@ -489,7 +506,8 @@ extension Stormcloud {
                         object.setValue(data, forKey: attribute.name)
                     }
                     unarchiver.finishDecoding()
-                } else {
+                }
+                else {
                     stormcloudLog("Transformable/Binary type : \(String(describing: data)) not String")
                 }
             case .objectIDAttributeType, .undefinedAttributeType, .UUIDAttributeType, .URIAttributeType:
@@ -507,18 +525,18 @@ extension Stormcloud {
 	- parameter context:    The context to restore the objects to
 	- parameter completion: A completion handler
 	*/
-	public func restoreCoreDataBackup(from document : JSONDocument,
-                                      to context : NSManagedObjectContext,
-                                      completion : @escaping (_ error : StormcloudError?) -> () ) {
+	public func restoreCoreDataBackup(from document: JSONDocument,
+                                      to context: NSManagedObjectContext,
+                                      completion: @escaping (_ error : StormcloudError?) -> () ) {
 		defer {
 			document.close(completionHandler: nil)
 		}
-		
+
 		guard let data = document.objectsToBackup as? [String : AnyObject] else {
 			self.operationInProgress = false
 			completion(.couldntRestoreJSON)
 			return
-		}		
+		}
 		self.insertObjectsWithContext(context, data: data) { (success)  -> Void in
 			self.operationInProgress = false
 			let error : StormcloudError?  = (success) ? nil : StormcloudError.couldntRestoreJSON
@@ -528,15 +546,15 @@ extension Stormcloud {
 	
 	/**
 	Restores a backup to Core Data from a StormcloudMetadata object
-	
-	- parameter metadata:  The metadata that represents the document
+
+	- parameter metadata:   The metadata that represents the document
 	- parameter context:    The context to restore the objects to
 	- parameter completion: A completion handler
 	*/
-	
-	public func restoreCoreDataBackup(from metadata : StormcloudMetadata,
-                                      to context : NSManagedObjectContext,
-                                      completion : @escaping (_ error : StormcloudError?) -> () ) {
+
+	public func restoreCoreDataBackup(from metadata: StormcloudMetadata,
+                                      to context: NSManagedObjectContext,
+                                      completion: @escaping (_ error : StormcloudError?) -> () ) {
 
 		guard self.operationInProgress == false else {
 			completion(.backupInProgress)
@@ -548,7 +566,8 @@ extension Stormcloud {
 		}
 		do {
 			try context.save()
-		} catch {
+		}
+        catch {
 			stormcloudLog("Error saving context")
 			completion(.couldntSaveManagedObjectContext)
 			return
@@ -564,7 +583,7 @@ extension Stormcloud {
 				completion(.couldntOpenDocument)
 				return
 			}
-			
+
 			DispatchQueue.main.async(execute: { [unowned self] () -> Void in
 				self.restoreCoreDataBackup(from: document, to: context, completion: completion)
 			})
@@ -580,14 +599,14 @@ extension Stormcloud {
 	///
 	/// - parameter objects:    An array of managed objects to backup
 	/// - parameter completion: A completion handler to be called when the process is complete
-	func backupCoreDataObjects( objects : [NSManagedObject],
-                                completion : @escaping ( _ error : StormcloudError?, _ metadata : StormcloudMetadata?) -> () ) {
-		
+	func backupCoreDataObjects(objects: [NSManagedObject],
+                               completion: @escaping ( _ error : StormcloudError?, _ metadata : StormcloudMetadata?) -> () ) {
+
 		guard let context = objects.first?.managedObjectContext else {
 			return
 		}
-		
-		var temporaryObjectIDs : [NSManagedObject] = objects.filter() { $0.objectID.isTemporaryID }
+
+		var temporaryObjectIDs: [NSManagedObject] = objects.filter() { $0.objectID.isTemporaryID }
 		do {
 			try context.obtainPermanentIDs(for: temporaryObjectIDs)
 		}
@@ -600,26 +619,26 @@ extension Stormcloud {
 			print("Error converting temporary IDs")
 		}
 		
-		let objectIDs : [NSManagedObjectID] = objects.map() { $0.objectID }
+		let objectIDs: [NSManagedObjectID] = objects.map() { $0.objectID }
 		
 		let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
 		privateContext.parent = context
 		privateContext.perform { () -> Void in
-			
+
 			var managedObjects : [NSManagedObject] = []
 			for objectID in objectIDs {
 				managedObjects.append(privateContext.object(with: objectID))
 			}
-			
+
 			// Dictionaries are a list of all objects, with their ManagedObjectID as the key and a dictionary of their parts as the object
-			var dictionary : [String : [ String : Any ] ] = [:]
-			
+			var dictionary: [String : [ String : Any ] ] = [:]
+
 			self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
 			for object in managedObjects {
 				let uriRepresentation = object.objectID.uriRepresentation().absoluteString
-				
-				var internalDictionary : [String : Any] = [StormcloudEntityKeys.EntityType.rawValue : object.entity.name! as AnyObject]
-				
+
+				var internalDictionary: [String : Any] = [StormcloudEntityKeys.EntityType.rawValue : object.entity.name! as AnyObject]
+
 				for propertyDescription in object.entity.properties {
 					if let attribute = propertyDescription as? NSAttributeDescription {
 						internalDictionary[attribute.name] = self.getAttribute(attribute, fromObject: object)
@@ -627,9 +646,9 @@ extension Stormcloud {
 					
 					if let relationship = propertyDescription as? NSRelationshipDescription {
 						
-						var relationshipArray : [[String : Any]] = [[:]]
+						var relationshipArray: [[String : Any]] = [[:]]
 						
-						var objectIDs : [String] = []
+						var objectIDs: [String] = []
 						if let objectSet =  object.value(forKey: relationship.name) as? NSSet, let objectArray = objectSet.allObjects as? [NSManagedObject] {
 							for object in objectArray {
 								var objectDictionary : [String : Any] = [:]
@@ -642,11 +661,10 @@ extension Stormcloud {
 								relationshipArray.append(objectDictionary)
 							}
 						}
-						
+
 						if let relationshipObject = object.value(forKey: relationship.name) as? NSManagedObject {
 							let objectID = relationshipObject.objectID.uriRepresentation().absoluteString
 							objectIDs.append(objectID)
-							
 						}
 						internalDictionary[relationship.name] = relationshipArray
 					}
@@ -655,9 +673,9 @@ extension Stormcloud {
 			}
 			
 			if !JSONSerialization.isValidJSONObject(dictionary) {
-				
+
 				self.stormcloudLog("\(#function) Error: Dictionary not valid: \(dictionary)")
-				
+
 				DispatchQueue.main.async(execute: { () -> Void in
 					self.operationInProgress = false
 					completion(.invalidJSON, nil)
@@ -666,21 +684,21 @@ extension Stormcloud {
             else {
 				DispatchQueue.main.async(execute: { () -> Void in
 					self.operationInProgress = false
-					
+
 					self.addDocument(withData: dictionary, for: .json, completion: completion)
-					
+
 //					self.backupObjectsToJSON(dictionary as AnyObject, completion: completion)
 				})
 			}
 		}
 	}
 	
-	public func backupCoreDataEntities( in currentContext : NSManagedObjectContext,
-                                        completion : @escaping ( _ error : StormcloudError?, _ metadata : StormcloudMetadata?) -> () ) {
-		
+	public func backupCoreDataEntities(in currentContext: NSManagedObjectContext,
+                                       completion: @escaping ( _ error : StormcloudError?, _ metadata : StormcloudMetadata?) -> () ) {
+
 		self.stormcloudLog("Beginning backup of Core Data with context : \(currentContext)")
-		
-		do {
+
+        do {
 			try currentContext.save()
 		}
         catch {
@@ -691,54 +709,58 @@ extension Stormcloud {
 			return
 		}
 		self.operationInProgress = true
-		
+
 		let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
 		context.parent = currentContext
 		context.perform { () -> Void in
-			
+
 			// Dictionaries are a list of all objects, with their ManagedObjectID as the key and a dictionary of their parts as the object
-			var dictionary : [String : [ String : Any ] ] = [:]
+			var dictionary: [String : [ String : Any ] ] = [:]
 			
 			if let entities = context.persistentStoreCoordinator?.managedObjectModel.entities {
-				
+
 				self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
 				for entity in entities {
-					if let entityName = entity.name {
-						let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-						
-						let allObjects : [NSManagedObject]
+
+                    if let entityName = entity.name {
+
+                        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+
+						let allObjects: [NSManagedObject]
 						do {
 							allObjects = try context.fetch(request) as! [NSManagedObject]
 						}
                         catch {
 							allObjects = []
 						}
-						
+
 						self.stormcloudLog("Found \(allObjects.count) of \(entityName) to back up")
-						
+
 						for object in allObjects {
-							let uriRepresentation = object.objectID.uriRepresentation().absoluteString
-							
-							var internalDictionary : [String : Any] = [StormcloudEntityKeys.EntityType.rawValue : entityName as AnyObject]
-							
+
+                            let uriRepresentation = object.objectID.uriRepresentation().absoluteString
+
+							var internalDictionary: [String : Any] = [StormcloudEntityKeys.EntityType.rawValue : entityName as AnyObject]
+
 							for propertyDescription in entity.properties {
+
 								if let attribute = propertyDescription as? NSAttributeDescription {
 									internalDictionary[attribute.name] = self.getAttribute(attribute, fromObject: object)
 								}
-								
+
 								if let relationship = propertyDescription as? NSRelationshipDescription {
-									var objectIDs : [String] = []
-									if let objectSet =  object.value(forKey: relationship.name) as? NSSet, let objectArray = objectSet.allObjects as? [NSManagedObject] {
-										for object in objectArray {
-											
+
+                                    var objectIDs: [String] = []
+									if let objectSet = object.value(forKey: relationship.name) as? NSSet, let objectArray = objectSet.allObjects as? [NSManagedObject] {
+
+                                        for object in objectArray {
 											objectIDs.append(object.objectID.uriRepresentation().absoluteString)
 										}
 									}
-									
+
 									if let relationshipObject = object.value(forKey: relationship.name) as? NSManagedObject {
 										let objectID = relationshipObject.objectID.uriRepresentation().absoluteString
 										objectIDs.append(objectID)
-										
 									}
 									internalDictionary[relationship.name] = objectIDs
 								}
@@ -750,7 +772,7 @@ extension Stormcloud {
 				if !JSONSerialization.isValidJSONObject(dictionary) {
 
 					self.stormcloudLog("\(#function) Error: Dictionary not valid: \(dictionary)")
-					
+
 					DispatchQueue.main.async(execute: { () -> Void in
 						self.operationInProgress = false
 						completion(.invalidJSON, nil)

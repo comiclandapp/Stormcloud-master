@@ -12,9 +12,10 @@ open class StormcloudDefaultsManager: NSObject {
     
     open var prefix : String = ""
     var updatingiCloud = false
-    
+
     override public init() {
         super.init()
+
         NotificationCenter.default.addObserver(self, selector: #selector(StormcloudDefaultsManager.ubiquitousContentDidChange(_:)), name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StormcloudDefaultsManager.enablediCloud(_:)), name: NSNotification.Name.NSUbiquityIdentityDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StormcloudDefaultsManager.userDefaultsDidChange(_:)), name: UserDefaults.didChangeNotification, object: nil)
@@ -22,7 +23,7 @@ open class StormcloudDefaultsManager: NSObject {
     }
     
     @objc func ubiquitousContentDidChange( _ note : Notification ) {
-        
+
         for ( key, value ) in NSUbiquitousKeyValueStore.default.dictionaryRepresentation {
             if key.hasPrefix(self.prefix ) {
                 if let isBool = value as? Bool {
@@ -37,8 +38,9 @@ open class StormcloudDefaultsManager: NSObject {
             }
         }
     }
-    
+
     @objc func userDefaultsDidChange( _ note : Notification ) {
+
         if updatingiCloud {
             return
         }

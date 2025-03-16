@@ -50,7 +50,8 @@ protocol DocumentProvider {
 }
 
 class iCloudDocumentProvider : DocumentProvider {
-	let token = FileManager.default.ubiquityIdentityToken
+
+    let token = FileManager.default.ubiquityIdentityToken
 	weak var delegate: DocumentProviderDelegate?
 	var finishedInitialUpdate = false
 	var pollingFrequecy: TimeInterval = 0.3 {
@@ -129,7 +130,6 @@ class iCloudDocumentProvider : DocumentProvider {
 					hasBackup.iCloudMetadata = item
 					allBackups.append(hasBackup)
 				}
-				
 			}
 		}
 		
@@ -150,7 +150,8 @@ class iCloudDocumentProvider : DocumentProvider {
 }
 
 class LocalDocumentProvider : DocumentProvider {
-	weak var delegate: DocumentProviderDelegate?
+
+    weak var delegate: DocumentProviderDelegate?
 	var pollingFrequecy: TimeInterval = 2 {
 		didSet {
 			updateTimer()
@@ -197,7 +198,8 @@ class LocalDocumentProvider : DocumentProvider {
 		let items : [URL]
 		do {
 			items = try FileManager.default.contentsOfDirectory(at: docsDir, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-		} catch {
+		}
+        catch {
 			print("Error reading items")
 			items = []
 		}

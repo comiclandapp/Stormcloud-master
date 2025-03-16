@@ -21,8 +21,8 @@ open class JSONDocument: UIDocument, StormcloudDocument {
                     self.objectsToBackup = isJson
                     self.backupMetadata = JSONMetadata(fileURL: self.fileURL)
                 }
-                
-            } catch {
+            }
+            catch {
                 print("Error reading JSON, or not correct format")
             }
         }
@@ -31,20 +31,19 @@ open class JSONDocument: UIDocument, StormcloudDocument {
     }
     
     open override func contents(forType typeName: String) throws -> Any {
+
         var data = Data()
-        
+
         guard let hasData = self.objectsToBackup  else {
 			throw StormcloudError.invalidJSON
         }
 		do {
 			data = try JSONSerialization.data(withJSONObject: hasData, options: .prettyPrinted)
-			
-		} catch {
+		}
+        catch {
 			print("Error saving")
 		}
 		
 		return NSData(data: data)
     }
-	
-	
 }
